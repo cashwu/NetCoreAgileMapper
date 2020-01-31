@@ -29,7 +29,7 @@ namespace testAgileMapper.Controllers
             };
 
             var customerDto = Mapper.Map(customer).ToANew<CustomerDto>();
-
+            
             Console.WriteLine("--- to a new ---");
             Console.WriteLine(JsonSerializer.Serialize(customerDto));
 
@@ -71,6 +71,11 @@ namespace testAgileMapper.Controllers
             Console.WriteLine($"is equal - {referenceEquals}");
             Console.WriteLine("origin --" + JsonSerializer.Serialize(cc));
             Console.WriteLine("clone --" + JsonSerializer.Serialize(ccClone));
+            
+            var plan = Mapper.GetPlanFor<Customer>().ToANew<CustomerDto>();
+
+            Console.WriteLine("--- plan ---");
+            Console.WriteLine(plan);
 
             return Ok();
         }
@@ -115,6 +120,12 @@ namespace testAgileMapper.Controllers
 
             Console.WriteLine("--- db project config static ---");
             Console.WriteLine(JsonSerializer.Serialize(result3));
+
+            var plan = Mapper.GetPlanForProjecting(_dbContext.User).To<CustomerDto>();
+
+            Console.WriteLine("--- plan ---");
+            Console.WriteLine(plan);
+            
             return Ok();
         }
     }
